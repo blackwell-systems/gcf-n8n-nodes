@@ -66,6 +66,22 @@ Enable "Include Token Metrics" to see per-item comparisons:
 - [GitHub](https://github.com/blackwell-systems/gcf-n8n-nodes)
 - [GCF TypeScript Library](https://www.npmjs.com/package/@blackwell-systems/gcf)
 
+## Why GCF over TOON?
+
+| | GCF | TOON |
+|---|---|---|
+| Token savings vs JSON | **71%** | 40% |
+| GCF vs TOON (15 datasets) | **25.5% fewer** | baseline |
+| LLM comprehension (500 records) | **100%** on every frontier model | Fails on GPT-5.5 |
+| LLM generation validity | **5/5** on every frontier model | Rejected by 7/9 models |
+| Source format support | JSON, YAML, TOML, CSV, MessagePack | JSON only |
+| Runtime dependencies | **Zero** | 1 |
+| Lossless round-trips verified | **33 billion+** | None published |
+| Session deduplication | Yes (92% savings by 5th call) | No |
+| Graph/relationship encoding | Yes (local IDs, typed edges) | No |
+
+[Full comparison with benchmarks](https://gcformat.com/guide/vs-toon.html)
+
 ## How GCF Works
 
 GCF replaces JSON's verbose syntax with a compact, deterministic encoding:
