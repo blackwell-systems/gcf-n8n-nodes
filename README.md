@@ -63,7 +63,7 @@ Enable "Include Token Metrics" to see per-item comparisons:
 - [GCF Specification](https://gcformat.com)
 - [Interactive Playground](https://gcformat.com/playground)
 - [Benchmark Results](https://gcformat.com/guide/benchmarks)
-- [GitHub](https://github.com/blackwell-systems/n8n-nodes-gcf)
+- [GitHub](https://github.com/blackwell-systems/gcf-n8n-nodes)
 - [GCF TypeScript Library](https://www.npmjs.com/package/@blackwell-systems/gcf)
 
 ## How GCF Works

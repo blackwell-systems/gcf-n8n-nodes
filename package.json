@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "n8n node for GCF (Graph Compact Format) - bidirectional conversion between GCF and JSON. 71% fewer tokens, zero config.",
   "license": "MIT",
-  "homepage": "https://github.com/blackwell-systems/n8n-nodes-gcf#readme",
+  "homepage": "https://github.com/blackwell-systems/gcf-n8n-nodes#readme",
   "keywords": [
     "n8n-community-node-package",
     "gcf",
@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/blackwell-systems/n8n-nodes-gcf.git"
+    "url": "git+https://github.com/blackwell-systems/gcf-n8n-nodes.git"
   },
   "scripts": {
     "build": "n8n-node build",
