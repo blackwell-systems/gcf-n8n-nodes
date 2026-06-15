@@ -16,7 +16,14 @@ import type {
 } from 'n8n-workflow';
 import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
 
-import { encode, decode, encodeGeneric, decodeGeneric } from '@blackwell-systems/gcf';
+// Dynamic import for ESM compatibility (n8n runs CommonJS)
+let gcfModule: any = null;
+async function getGcf() {
+	if (!gcfModule) {
+		gcfModule = await import('@blackwell-systems/gcf');
+	}
+	return gcfModule;
+}
 
 export class Gcf implements INodeType {
 	description: INodeTypeDescription = {
@@ -156,7 +163,7 @@ export class Gcf implements INodeType {
 
 				switch (operation) {
 					case 'encode': {
-						const encodeResult = encodeData(inputData);
+						const encodeResult = await encodeData(inputData);
 						result = encodeResult.gcf;
 
 						const additionalOptions = this.getNodeParameter(
@@ -184,7 +191,7 @@ export class Gcf implements INodeType {
 						break;
 					}
 					case 'decode':
-						result = decodeData(inputData, this, itemIndex);
+						result = await decodeData(inputData, this, itemIndex);
 						break;
 					default:
 						throw new NodeOperationError(
@@ -233,22 +240,23 @@ export class Gcf implements INodeType {
  * Detects graph-shaped data (has `tool` + `symbols` fields) and uses the
  * graph-profile encoder; otherwise uses the generic encoder.
  */
-function encodeData(data: unknown): { gcf: string } {
+async function encodeData(data: unknown): Promise<{ gcf: string }> {
+	const gcf = await getGcf();
 	if (isGraphPayload(data)) {
-		return { gcf: encode(data as any) };
+		return { gcf: gcf.encode(data as any) };
 	}
-	return { gcf: encodeGeneric(data) };
+	return { gcf: gcf.encodeGeneric(data) };
 }
 
 /**
  * Decode GCF text back to JSON.
  * Detects graph-profile headers and routes to the appropriate decoder.
  */
-function decodeData(
+async function decodeData(
 	data: unknown,
 	context: IExecuteFunctions,
 	itemIndex: number,
-): unknown {
+): Promise<unknown> {
 	if (typeof data !== 'string') {
 		throw new NodeOperationError(
 			context.getNode(),
@@ -257,12 +265,12 @@ function decodeData(
 		);
 	}
 
+	const gcf = await getGcf();
 	if (data.startsWith('GCF profile=graph')) {
-		const payload = decode(data);
-		return payload;
+		return gcf.decode(data);
 	}
 
-	return decodeGeneric(data);
+	return gcf.decodeGeneric(data);
 }
 
 /**
