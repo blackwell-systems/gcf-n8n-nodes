@@ -1,0 +1,107 @@
+{
+  "name": "GCF Token Optimization for LLM Tool Responses",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "start",
+      "name": "Start",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://jsonplaceholder.typicode.com/users",
+        "options": {}
+      },
+      "id": "fetch-data",
+      "name": "Fetch API Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "operation": "jsonToGcf",
+        "inputData": "={{ $json }}",
+        "outputField": "gcf",
+        "additionalOptions": {
+          "includeTokenMetrics": true
+        }
+      },
+      "id": "gcf-encode",
+      "name": "GCF Encode (71% fewer tokens)",
+      "type": "n8n-nodes-gcf.gcf",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "operation": "gcfToJson",
+        "inputData": "={{ $json.gcf }}",
+        "outputField": "decoded"
+      },
+      "id": "gcf-decode",
+      "name": "GCF Decode (lossless)",
+      "type": "n8n-nodes-gcf.gcf",
+      "typeVersion": 1,
+      "position": [850, 300]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Fetch API Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch API Data": {
+      "main": [
+        [
+          {
+            "node": "GCF Encode (71% fewer tokens)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GCF Encode (71% fewer tokens)": {
+      "main": [
+        [
+          {
+            "node": "GCF Decode (lossless)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "gcf-template"
+  },
+  "tags": [
+    {
+      "name": "AI",
+      "id": "ai"
+    },
+    {
+      "name": "Token Optimization",
+      "id": "token-optimization"
+    },
+    {
+      "name": "LLM",
+      "id": "llm"
+    }
+  ]
+}
