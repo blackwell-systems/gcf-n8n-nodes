@@ -1,0 +1,59 @@
+{
+  "name": "n8n-nodes-gcf",
+  "version": "0.1.0",
+  "description": "n8n node for GCF (Graph Compact Format) - bidirectional conversion between GCF and JSON. 71% fewer tokens, zero config.",
+  "license": "MIT",
+  "homepage": "https://github.com/blackwell-systems/n8n-nodes-gcf#readme",
+  "keywords": [
+    "n8n-community-node-package",
+    "gcf",
+    "graph-compact-format",
+    "json",
+    "data-transformation",
+    "format-conversion",
+    "serialization",
+    "llm",
+    "token-optimization",
+    "ai",
+    "structured-data"
+  ],
+  "author": {
+    "name": "Blackwell Systems",
+    "url": "https://gcformat.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blackwell-systems/n8n-nodes-gcf.git"
+  },
+  "scripts": {
+    "build": "n8n-node build",
+    "build:watch": "tsc --watch",
+    "dev": "n8n-node dev",
+    "lint": "npx @n8n/node-cli@latest lint",
+    "lint:fix": "npx @n8n/node-cli@latest lint --fix"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "strict": true,
+    "credentials": [],
+    "nodes": [
+      "dist/nodes/Gcf/Gcf.node.js"
+    ]
+  },
+  "dependencies": {
+    "@blackwell-systems/gcf": "^2.1.0"
+  },
+  "devDependencies": {
+    "@n8n/node-cli": "^0.30.1",
+    "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
+}
