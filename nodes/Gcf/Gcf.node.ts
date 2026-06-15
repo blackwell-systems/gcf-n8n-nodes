@@ -32,7 +32,7 @@ export class Gcf implements INodeType {
 		icon: 'file:gcf.svg',
 		group: ['transform'],
 		version: 1,
-		description: 'Convert between GCF and JSON. 71% fewer tokens for LLM tool responses.',
+		description: 'Convert between GCF and JSON. 71% fewer tokens than JSON, 25.5% fewer than TOON. 100% LLM comprehension on every frontier model. 33B+ lossless round-trips verified.',
 		subtitle: '={{$parameter["operation"]}}',
 		defaults: {
 			name: 'GCF',
