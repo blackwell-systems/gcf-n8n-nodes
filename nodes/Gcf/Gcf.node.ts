@@ -202,8 +202,7 @@ export class Gcf implements INodeType {
 				}
 
 				const outputJson = {
-					...(items[itemIndex].json as object),
-					[outputField]: result,
+					[outputField]: result as string,
 				} as IDataObject;
 
 				if (tokenMetrics) {
